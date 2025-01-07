@@ -1,0 +1,9 @@
+Package: com.notdbrand.veterisredirect
+Name: VeterisRedirect
+Version: 1.7.2
+Architecture: iphoneos-arm
+Description: Redirect Veteris 1.7.2 to any server.
+Maintainer: Notdbrand
+Author: Notdbrand
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
