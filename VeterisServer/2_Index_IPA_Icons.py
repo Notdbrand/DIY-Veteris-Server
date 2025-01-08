@@ -48,19 +48,23 @@ def save_icon(icon_data, bundle_id):
         os.makedirs(icon_directory)
 
     try:
-        icon_image = Image.open(BytesIO(icon_data))
-        icon_image.verify()
-        icon_image = Image.open(BytesIO(icon_data))
-        output_path = os.path.join(icon_directory, f"{clean_bundleID}.png")
-        icon_image.save(output_path)
-        print(f"Icon saved for {clean_bundleID} at {output_path}")
-    except (OSError, Image.UnidentifiedImageError) as e:
+        if icon_data:
+            icon_image = Image.open(BytesIO(icon_data))
+            icon_image.verify()
+            icon_image = Image.open(BytesIO(icon_data))
+            output_path = os.path.join(icon_directory, f"{clean_bundleID}.png")
+            icon_image.save(output_path)
+            print(f"Icon saved for {clean_bundleID} at {output_path}")
+        else:
+            raise ValueError("No icon data available")
+
+    except (OSError, Image.UnidentifiedImageError, ValueError) as e:
         print(f"Failed to save icon for {clean_bundleID}: {e}")
         shutil.copy(default_icon_path, os.path.join(icon_directory, f"{clean_bundleID}.png"))
 
 def process_ipas():
     bundle_ids = {}
-    pattern = re.compile(r'^(.*?)\-(.*?)\-(.*?)\-(.*?)\-(.*?)\.ipa$')
+    pattern = re.compile(r'^(.*?)\-\((.*?)\)\-(.*?)\-(.*?)\-(.*?)\.ipa$')
     scanned_files = load_scanned_files()
     new_icons_found = False
 
