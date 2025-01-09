@@ -42,7 +42,7 @@ def extract_icon_from_ipa(ipa_path, bundle_id):
     return None, None
 
 def save_icon(icon_data, bundle_id):
-    clean_bundleID = bundle_id[1:-1]
+    clean_bundleID = bundle_id.strip("()")
     
     if not os.path.exists(icon_directory):
         os.makedirs(icon_directory)
